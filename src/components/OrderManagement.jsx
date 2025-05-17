@@ -117,7 +117,7 @@ const OrderManagement = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get("process.env.BASE_URL/admin/orders", {
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/orders`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       setOrders(res.data);
@@ -156,7 +156,7 @@ const OrderManagement = () => {
       fetchOrders();
 
       if (!socketRef.current && user?._id) {
-        socketRef.current = io("process.env.BASE_URL");
+        socketRef.current = io(`${import.meta.env.VITE_BASE_URL}`);
 
         socketRef.current.emit("joinRoom", {
           userId: user._id,

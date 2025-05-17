@@ -42,7 +42,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        'process.env.BASE_URL/users/login', 
+        `${import.meta.env.VITE_BASE_URL}/users/login`, 
         formData,
         {
           headers: {

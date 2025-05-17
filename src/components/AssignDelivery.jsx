@@ -21,7 +21,7 @@ const AssignDelivery = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/admin/orders", {
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/orders`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data.filter((order) => order.status === "pending"));
@@ -34,7 +34,7 @@ const AssignDelivery = () => {
 
   const fetchDrivers = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/admin/drivers", {
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/drivers`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setDrivers(res.data);
@@ -52,7 +52,7 @@ const AssignDelivery = () => {
     try {
       setLoading(prev => ({ ...prev, [orderId]: true }));
       await axios.post(
-        "http://localhost:5000/admin/assign-delivery",
+        `${import.meta.env.VITE_BASE_URL}/admin/assign-delivery`,
         { orderId, driverId: selectedDrivers[orderId] },
         { headers: { Authorization: `Bearer ${token}` } }
       );

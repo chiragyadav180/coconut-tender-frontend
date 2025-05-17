@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { io } from "socket.io-client";
 import 'react-toastify/dist/ReactToastify.css';
 
-const socket = io("process.env.BASE_URL");
+const socket = io(`${import.meta.env.VITE_BASE_URL}`);
 
 const DriverDashboard = () => {
   const { user } = useAuth();
@@ -23,7 +23,7 @@ const DriverDashboard = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `process.env.BASE_URL/driver/assigned-orders?history=${tab === "history"}`,
+        `${import.meta.env.VITE_BASE_URL}/driver/assigned-orders?history=${tab === "history"}`,
         { headers: { Authorization: `Bearer ${user?.token}` } }
       );
       setOrders(res.data.data || []);
@@ -75,7 +75,7 @@ const DriverDashboard = () => {
     try {
       setLoading(true);
       await axios.put(
-        `process.env.BASE_URL/driver/update-status/${orderId}`,
+        `${import.meta.env.VITE_BASE_URL}/driver/update-status/${orderId}`,
         { status },
         { headers: { Authorization: `Bearer ${user?.token}` } }
       );

@@ -73,7 +73,7 @@ const Register = () => {
 
     try {
       const res = await axios.post(
-        'process.env.BASE_URL/users/register', 
+        `${import.meta.env.VITE_BASE_URL}/users/register`, 
         formData,
         {
           headers: {

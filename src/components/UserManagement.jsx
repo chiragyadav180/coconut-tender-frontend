@@ -20,7 +20,7 @@ const UserManagement = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("process.env.BASE_URL/admin/users", {
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/users`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       setUsers(res.data);
@@ -42,7 +42,7 @@ const UserManagement = () => {
   const handleDelete = async (userId) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
-      await axios.delete(`process.env.BASE_URL/admin/users/${userId}`, {
+      await axios.delete(`${import.meta.env.VITE_BASE_URL}/admin/users/${userId}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const updated = users.filter((u) => u._id !== userId);
@@ -63,7 +63,7 @@ const UserManagement = () => {
     }
 
     try {
-      const res = await axios.post("process.env.BASE_URL/admin/users", newUser, {
+      const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/admin/users`, newUser, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const updated = [...users, res.data.user];
@@ -89,7 +89,7 @@ const UserManagement = () => {
 
     try {
       const res = await axios.put(
-        `process.env.BASE_URL/admin/users/${editingUser._id}`,
+        `${import.meta.env.VITE_BASE_URL}/admin/users/${editingUser._id}`,
         editingUser,
         {
           headers: { Authorization: `Bearer ${user.token}` },

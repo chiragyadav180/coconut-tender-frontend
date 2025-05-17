@@ -20,7 +20,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     if (!user?._id) return;
 
-    const socketInstance = io("process.env.BASE_URL");
+    const socketInstance = io(`${import.meta.env.VITE_BASE_URL}`);
 
     socketInstance.emit("joinRoom", {
       userId: user._id,

@@ -33,7 +33,7 @@ const VendorDashboard = () => {
     // Socket connection
     useEffect(() => {
         if (!socketRef.current && user?._id && user?.role === "vendor") {
-            socketRef.current = io("process.env.BASE_URL", {
+            socketRef.current = io(`${import.meta.env.VITE_BASE_URL}`, {
                 reconnectionAttempts: 3,
                 reconnectionDelay: 1000,
             });
@@ -69,7 +69,7 @@ const VendorDashboard = () => {
 
     const fetchCoconuts = async () => {
         try {
-            const res = await axios.get("process.env.BASE_URL/vendor/coconuts", {
+            const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/vendor/coconuts`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setCoconuts(res.data.data);
@@ -81,7 +81,7 @@ const VendorDashboard = () => {
     const fetchOrders = async () => {
         setLoading(prev => ({ ...prev, orders: true }));
         try {
-            const res = await axios.get(`process.env.BASE_URL/vendor/orders/${user._id}`, {
+            const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/vendor/orders/${user._id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setOrders(res.data.data);
@@ -106,7 +106,7 @@ const VendorDashboard = () => {
         setLoading(prev => ({ ...prev, order: true }));
         try {
             const response = await axios.post(
-                "process.env.BASE_URL/vendor/order",
+                `${import.meta.env.VITE_BASE_URL}/vendor/order`,
                 {
                     coconutId: selectedCoconut,
                     quantity: Number(quantity),
@@ -156,7 +156,7 @@ const VendorDashboard = () => {
             });
 
             const sessionResponse = await axios.post(
-                "process.env.BASE_URL/vendor/create-checkout-session",
+                `${import.meta.env.VITE_BASE_URL}/vendor/create-checkout-session`,
                 {
                     orderId,
                     amount: Number(amount)
@@ -169,7 +169,7 @@ const VendorDashboard = () => {
             }
 
             const response = await axios.post(
-                "process.env.BASE_URL/vendor/pay",
+                `${import.meta.env.VITE_BASE_URL}/vendor/pay`,
                 {
                     orderId,
                     amount: Number(amount),
@@ -195,7 +195,7 @@ const VendorDashboard = () => {
                     notes: razorpayOrder.notes,
                     handler: async (response) => {
                         const verifyResponse = await axios.post(
-                            "process.env.BASE_URL/vendor/verify-payment",
+                            `${import.meta.env.VITE_BASE_URL}/vendor/verify-payment`,
                             {
                                 razorpay_payment_id: response.razorpay_payment_id,
                                 razorpay_order_id: response.razorpay_order_id,

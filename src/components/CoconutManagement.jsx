@@ -19,7 +19,7 @@ const CoconutManagement = () => {
 
   const fetchCoconuts = async () => {
     try {
-      const res = await axios.get("process.env.BASE_URL/admin/coconuts", {
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/coconuts`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCoconuts(res.data.coconuts);
@@ -43,8 +43,8 @@ const CoconutManagement = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = editId
-      ? `process.env.BASE_URL/admin/coconuts/${editId}`
-      : "process.env.BASE_URL/admin/coconuts";
+      ? `${import.meta.env.VITE_BASE_URL}/admin/coconuts/${editId}`
+      : `${import.meta.env.VITE_BASE_URL}/admin/coconuts`;
 
     try {
       if (editId) {
@@ -80,7 +80,7 @@ const CoconutManagement = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this coconut?")) return;
     try {
-      await axios.delete(`process.env.BASE_URL/admin/coconuts/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_BASE_URL}/admin/coconuts/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("Coconut deleted");

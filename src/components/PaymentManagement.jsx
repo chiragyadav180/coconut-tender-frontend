@@ -13,7 +13,7 @@ const PaymentManagement = () => {
 
   const fetchPayments = async () => {
     try {
-      const res = await axios.get("process.env.BASE_URL/admin/payments", {
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/payments`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       setPayments(res.data);
@@ -50,7 +50,7 @@ const PaymentManagement = () => {
       const newStatus = newDueAmount <= 0.01 ? "completed" : "pending"; 
 
       const res = await axios.put(
-        `process.env.BASE_URL/admin/payments/${paymentId}`,
+        `${import.meta.env.VITE_BASE_URL}/admin/payments/${paymentId}`,
         { 
           status: newStatus,
           amountPaid: newPaidAmount,
